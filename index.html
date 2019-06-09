@@ -13,16 +13,23 @@
     <div class="container">
         <nav class="navbar navbar-light bg-light justify-content-between">
             <a class="navbar-brand">GifTastic</a>
-            <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <form id="searchGif" class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Enter an animal" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
         </nav>
+
+        <div class="row">
+            <!-- holds the buttons for the animals -->
+            <div id="button-Holder" class="col-sm-12"></div>
+        </div>
+
         <div class="row">
             <!-- holds the gifs -->
             <div id="gif-Section" class="col-sm-9">gifs here</div>
             <!-- displays the data on the gif -->
-            <div id="info-Section" class="col-sm-3">gif info here</div>
+            <div id="info-Section" class="col-sm-3">
+            </div>
         </div>
 
     </div>    
@@ -30,7 +37,8 @@
 
 
 
-
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
     <script src="assets/javascript/giffy.js"></script>
 </body>
 </html>
