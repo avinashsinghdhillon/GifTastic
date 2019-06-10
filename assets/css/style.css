@@ -1,4 +1,8 @@
-
+a:not([href]):not([tabindex]) {
+    color: #28a745;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
 .navbar {
     border: .2rem solid;
 }
@@ -10,6 +14,7 @@
 
 .btn-sm {
     margin: .2em;
+    text-transform: capitalize;
 }
 
 #gif-Section {

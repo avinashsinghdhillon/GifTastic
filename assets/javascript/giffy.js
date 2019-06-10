@@ -1,7 +1,7 @@
 //global variables
 
 //list of buttons preloaded on the page
-const preloadedGifs = ["dog", "cat", "cow", "kookaburra", "monkey", "horse", "lion", "bear", "zebra", "kangaroo"];
+const preloadedGifs = ["snoopy", "garfield", "popeye", "mickey mouse", "spongebob", "homer simpson", "donald duck", "tintin", "scooby-doo", "tom and jerry"];
 //Array of objects that holds the data 
 let gifData = new Array({});
 
@@ -22,13 +22,14 @@ function displayButton(item){
 }
 
 function displayGifStills(){
+    $("#gif-Section").empty();
     for( var i = 0; i < gifData.length; i++){
         var htmlText =
             '<div class="card border-success" style="max-width: 18rem;">' +
                     '<img id=' + i + '" class="card-img-top" src="' + gifData[i].fixedHeightStill +' alt="Card image cap" state="still">' +
                     '<p class="card-title"> Title: ' + gifData[i].title + '</p>' +
-                    '<p class="list-group-item">Rating: ' + gifData[i].rating +'</p>' +
-                    '<a href="#">OMDB</a>' +
+                    '<p class="list-group-item">Rating: ' + gifData[i].rating +'</p>'
+                    //'<a href="#">OMDB</a>' +///////////////////////can add this polish later to connect the item to OMDB's API///////////////
             '</div>';
     
         $("#gif-Section").append(htmlText);
@@ -38,13 +39,19 @@ function displayGifStills(){
 //on form submit event 1. display new button 2.display new gifs
 $("#searchGif").on("submit", function(event){
     event.preventDefault();
-    displayButton($("#searchGif").find("input").val().trim());
-    displayGifs($("#searchGif").find("input").val().trim());
+    selectedItem = $("#searchGif").find("input").val().trim();
+    //if the button/item already exists do nothing
+    if(preloadedGifs.indexOf(selectedItem) > -1){
+        return;
+    }
+    $("#searchGif").find("input").val("");
+    displayButton(selectedItem.trim());
+    preloadedGifs.push(selectedItem);
+    getGifs(selectedItem, 10);
 });
 
 //create the AJAX query and submit to Giphy's API
 function getGifs(item, numResults){
-
     //get the val of the text from the user input
     let searchString = $("#searchGif").find("input").val();
 
@@ -81,7 +88,12 @@ function fillGifDataArray(rawDataArray){
     displayGifStills();
 }
 
+//when you click on a gif/image...
 $("#gif-Section").on("click", function (event) {
+    //do nothing if the click was not on an img tag
+    if(event.target.nodeName.toUpperCase() != "IMG"){
+        return;
+    }
     //get the value of this image's ID which correspondes to the index of the array of items
     var indx = parseInt(event.target.id);
 
@@ -93,4 +105,9 @@ $("#gif-Section").on("click", function (event) {
         event.target.attributes["src"].value = gifData[indx].fixedHeightStill;
         event.target.attributes["state"].value = "still";
     }
+});
+
+$("#button-Holder").on("click", function (event){
+    selectedItem = event.target.textContent;
+    getGifs(selectedItem, 10);
 });
