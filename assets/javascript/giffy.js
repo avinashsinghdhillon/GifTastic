@@ -22,17 +22,10 @@ function displayButton(item){
 }
 
 function displayGifStills(){
-
-///////////////////////////////////////////////
-// try to order gifs by height size ascending before displaying
-/////////////////////////////////////////////////
-
-
-    //debugger;
     for( var i = 0; i < gifData.length; i++){
         var htmlText =
             '<div class="card border-success" style="max-width: 18rem;">' +
-                    '<img id="image' + i + '" class="card-img-top" src="' + gifData[i].fixedHeightStill +' alt="Card image cap">' +
+                    '<img id=' + i + '" class="card-img-top" src="' + gifData[i].fixedHeightStill +' alt="Card image cap" state="still">' +
                     '<p class="card-title"> Title: ' + gifData[i].title + '</p>' +
                     '<p class="list-group-item">Rating: ' + gifData[i].rating +'</p>' +
                     '<a href="#">OMDB</a>' +
@@ -42,7 +35,7 @@ function displayGifStills(){
     }
  }
 
-//on form submit event
+//on form submit event 1. display new button 2.display new gifs
 $("#searchGif").on("submit", function(event){
     event.preventDefault();
     displayButton($("#searchGif").find("input").val().trim());
@@ -87,3 +80,17 @@ function fillGifDataArray(rawDataArray){
     //display the GIF stills for all the gifs in the gifDataArray
     displayGifStills();
 }
+
+$("#gif-Section").on("click", function (event) {
+    //get the value of this image's ID which correspondes to the index of the array of items
+    var indx = parseInt(event.target.id);
+
+    // change the src attribute of this item based on its "state" value
+    if(event.target.attributes["state"].value === "still"){
+        event.target.attributes["src"].value = gifData[indx].fixedHeight;
+        event.target.attributes["state"].value = "playing";
+    }else{
+        event.target.attributes["src"].value = gifData[indx].fixedHeightStill;
+        event.target.attributes["state"].value = "still";
+    }
+});
