@@ -1,4 +1,8 @@
 
+.navbar {
+    border: .2rem solid;
+}
+
 #button-Holder {
     margin-top: .5rem;
     margin-bottom: .5rem;
